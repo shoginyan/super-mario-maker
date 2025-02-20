@@ -1,10 +1,10 @@
 package nex_datastore_super_mario_maker
 
 import (
-	nex "github.com/PretendoNetwork/nex-go"
-	datastore_super_mario_maker "github.com/PretendoNetwork/nex-protocols-go/datastore/super-mario-maker"
-	datastore_super_mario_maker_types "github.com/PretendoNetwork/nex-protocols-go/datastore/super-mario-maker/types"
-	datastore_types "github.com/PretendoNetwork/nex-protocols-go/datastore/types"
+	nex "github.com/PretendoNetwork/nex-go/v2"
+	datastore_super_mario_maker "github.com/PretendoNetwork/nex-protocols-go/v2/datastore/super-mario-maker"
+	datastore_super_mario_maker_types "github.com/PretendoNetwork/nex-protocols-go/v2/datastore/super-mario-maker/types"
+	datastore_types "github.com/PretendoNetwork/nex-protocols-go/v2/datastore/types"
 	datastore_db "github.com/PretendoNetwork/super-mario-maker-secure/database/datastore"
 	datastore_smm_db "github.com/PretendoNetwork/super-mario-maker-secure/database/datastore/super-mario-maker"
 	"github.com/PretendoNetwork/super-mario-maker-secure/globals"
@@ -13,7 +13,7 @@ import (
 func GetMetasWithCourseRecord(err error, packet nex.PacketInterface, callID uint32, params []*datastore_super_mario_maker_types.DataStoreGetCourseRecordParam, metaParam *datastore_types.DataStoreGetMetaParam) uint32 {
 	if err != nil {
 		globals.Logger.Error(err.Error())
-		return nex.Errors.DataStore.Unknown
+		return nex.ResultCodes.DataStore.Unknown
 	}
 
 	client := packet.Sender()
@@ -128,7 +128,7 @@ func GetMetasWithCourseRecord(err error, packet nex.PacketInterface, callID uint
 
 		pMetaInfo = append(pMetaInfo, objectInfo)
 		pCourseResults = append(pCourseResults, courseRecord)
-		pResults = append(pResults, nex.NewResultSuccess(nex.Errors.Core.Unknown)) // * Real server ALWAYS returns a success
+		pResults = append(pResults, nex.NewResultSuccess(nex.ResultCodes.Core.Unknown)) // * Real server ALWAYS returns a success
 	}
 
 	rmcResponseStream := nex.NewStreamOut(globals.SecureServer)

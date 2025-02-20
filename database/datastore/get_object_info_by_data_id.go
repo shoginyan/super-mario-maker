@@ -4,8 +4,8 @@ import (
 	"database/sql"
 	"time"
 
-	"github.com/PretendoNetwork/nex-go"
-	datastore_types "github.com/PretendoNetwork/nex-protocols-go/datastore/types"
+	"github.com/PretendoNetwork/nex-go/v2"
+	datastore_types "github.com/PretendoNetwork/nex-protocols-go/v2/datastore/types"
 	"github.com/PretendoNetwork/super-mario-maker-secure/database"
 	"github.com/PretendoNetwork/super-mario-maker-secure/globals"
 	"github.com/lib/pq"
@@ -67,13 +67,13 @@ func GetObjectInfoByDataID(dataID uint64) (*datastore_types.DataStoreMetaInfo, u
 
 	if err != nil {
 		if err == sql.ErrNoRows {
-			return nil, nex.Errors.DataStore.NotFound
+			return nil, nex.ResultCodes.DataStore.NotFound
 		}
 
 		globals.Logger.Error(err.Error())
 
 		// TODO - Send more specific errors?
-		return nil, nex.Errors.DataStore.Unknown
+		return nil, nex.ResultCodes.DataStore.Unknown
 	}
 
 	ratings, errCode := GetObjectRatingsWithSlotByDataID(metaInfo.DataID)

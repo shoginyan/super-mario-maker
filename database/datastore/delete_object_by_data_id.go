@@ -1,7 +1,7 @@
 package datastore_db
 
 import (
-	"github.com/PretendoNetwork/nex-go"
+	"github.com/PretendoNetwork/nex-go/v2"
 	"github.com/PretendoNetwork/super-mario-maker-secure/database"
 	"github.com/PretendoNetwork/super-mario-maker-secure/globals"
 )
@@ -16,7 +16,7 @@ func DeleteObjectByDataID(dataID uint64) uint32 {
 	if err != nil {
 		globals.Logger.Error(err.Error())
 		// TODO - Send more specific errors?
-		return nex.Errors.DataStore.Unknown
+		return nex.ResultCodes.DataStore.Unknown
 	}
 
 	return 0

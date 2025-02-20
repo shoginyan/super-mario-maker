@@ -5,10 +5,10 @@ import (
 	"os"
 	"time"
 
-	nex "github.com/PretendoNetwork/nex-go"
-	datastore_super_mario_maker "github.com/PretendoNetwork/nex-protocols-go/datastore/super-mario-maker"
-	datastore_super_mario_maker_types "github.com/PretendoNetwork/nex-protocols-go/datastore/super-mario-maker/types"
-	datastore_types "github.com/PretendoNetwork/nex-protocols-go/datastore/types"
+	nex "github.com/PretendoNetwork/nex-go/v2"
+	datastore_super_mario_maker "github.com/PretendoNetwork/nex-protocols-go/v2/datastore/super-mario-maker"
+	datastore_super_mario_maker_types "github.com/PretendoNetwork/nex-protocols-go/v2/datastore/super-mario-maker/types"
+	datastore_types "github.com/PretendoNetwork/nex-protocols-go/v2/datastore/types"
 	datastore_db "github.com/PretendoNetwork/super-mario-maker-secure/database/datastore"
 	"github.com/PretendoNetwork/super-mario-maker-secure/globals"
 )
@@ -16,7 +16,7 @@ import (
 func GetObjectInfos(err error, packet nex.PacketInterface, callID uint32, dataIDs []uint64) uint32 {
 	if err != nil {
 		globals.Logger.Error(err.Error())
-		return nex.Errors.DataStore.Unknown
+		return nex.ResultCodes.DataStore.Unknown
 	}
 
 	client := packet.Sender()
@@ -35,7 +35,7 @@ func GetObjectInfos(err error, packet nex.PacketInterface, callID uint32, dataID
 		URL, err := globals.Presigner.GetObject(bucket, key, time.Minute*15)
 		if err != nil {
 			globals.Logger.Error(err.Error())
-			return nex.Errors.DataStore.OperationNotAllowed
+			return nex.ResultCodes.DataStore.OperationNotAllowed
 		}
 
 		info := datastore_super_mario_maker_types.NewDataStoreFileServerObjectInfo()

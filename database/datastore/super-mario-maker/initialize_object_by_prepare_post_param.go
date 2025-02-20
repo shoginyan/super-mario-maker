@@ -3,8 +3,8 @@ package datastore_smm_db
 import (
 	"time"
 
-	"github.com/PretendoNetwork/nex-go"
-	datastore_smm_types "github.com/PretendoNetwork/nex-protocols-go/datastore/super-mario-maker/types"
+	"github.com/PretendoNetwork/nex-go/v2"
+	datastore_smm_types "github.com/PretendoNetwork/nex-protocols-go/v2/datastore/super-mario-maker/types"
 	"github.com/PretendoNetwork/super-mario-maker-secure/database"
 	"github.com/PretendoNetwork/super-mario-maker-secure/globals"
 	"github.com/lib/pq"
@@ -74,7 +74,7 @@ func InitializeObjectByAttachFileParam(ownerPID uint32, param *datastore_smm_typ
 	if err != nil {
 		globals.Logger.Error(err.Error())
 		// TODO - Send more specific errors?
-		return 0, nex.Errors.DataStore.Unknown
+		return 0, nex.ResultCodes.DataStore.Unknown
 	}
 
 	return dataID, 0

@@ -3,8 +3,8 @@ package nex
 import (
 	"os"
 
-	datastore "github.com/PretendoNetwork/nex-protocols-common-go/datastore"
-	secureconnection "github.com/PretendoNetwork/nex-protocols-common-go/secure-connection"
+	datastore "github.com/PretendoNetwork/nex-protocols-common-go/v2/datastore"
+	secureconnection "github.com/PretendoNetwork/nex-protocols-common-go/v2/secure-connection"
 	datastore_db "github.com/PretendoNetwork/super-mario-maker-secure/database/datastore"
 	"github.com/PretendoNetwork/super-mario-maker-secure/globals"
 	nex_datastore_super_mario_maker "github.com/PretendoNetwork/super-mario-maker-secure/nex/datastore/super-mario-maker"

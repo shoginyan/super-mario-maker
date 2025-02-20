@@ -3,7 +3,7 @@ package datastore_smm_db
 import (
 	"time"
 
-	"github.com/PretendoNetwork/nex-go"
+	"github.com/PretendoNetwork/nex-go/v2"
 	"github.com/PretendoNetwork/super-mario-maker-secure/database"
 	datastore_db "github.com/PretendoNetwork/super-mario-maker-secure/database/datastore"
 	"github.com/PretendoNetwork/super-mario-maker-secure/globals"
@@ -50,7 +50,7 @@ func InsertOrUpdateCourseRecord(dataID uint64, slot uint8, pid uint32, score int
 	if err != nil {
 		globals.Logger.Error(err.Error())
 		// TODO - Send more specific errors?
-		return nex.Errors.DataStore.Unknown
+		return nex.ResultCodes.DataStore.Unknown
 	}
 
 	return 0

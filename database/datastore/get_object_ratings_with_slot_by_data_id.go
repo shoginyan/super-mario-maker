@@ -3,8 +3,8 @@ package datastore_db
 import (
 	"database/sql"
 
-	"github.com/PretendoNetwork/nex-go"
-	datastore_types "github.com/PretendoNetwork/nex-protocols-go/datastore/types"
+	"github.com/PretendoNetwork/nex-go/v2"
+	datastore_types "github.com/PretendoNetwork/nex-protocols-go/v2/datastore/types"
 	"github.com/PretendoNetwork/super-mario-maker-secure/database"
 	"github.com/PretendoNetwork/super-mario-maker-secure/globals"
 )
@@ -20,13 +20,13 @@ func GetObjectRatingsWithSlotByDataID(dataID uint64) ([]*datastore_types.DataSto
 	rows, err := database.Postgres.Query(`SELECT slot, total_value, count, initial_value FROM datastore.object_ratings WHERE data_id=$1`, dataID)
 	if err != nil {
 		if err == sql.ErrNoRows {
-			return nil, nex.Errors.DataStore.NotFound
+			return nil, nex.ResultCodes.DataStore.NotFound
 		}
 
 		globals.Logger.Error(err.Error())
 
 		// TODO - Send more specific errors?
-		return nil, nex.Errors.DataStore.Unknown
+		return nil, nex.ResultCodes.DataStore.Unknown
 	}
 
 	defer rows.Close()
@@ -40,7 +40,7 @@ func GetObjectRatingsWithSlotByDataID(dataID uint64) ([]*datastore_types.DataSto
 		if err != nil {
 			globals.Logger.Error(err.Error())
 			// TODO - Send more specific errors?
-			return nil, nex.Errors.DataStore.Unknown
+			return nil, nex.ResultCodes.DataStore.Unknown
 		}
 
 		ratings = append(ratings, rating)
@@ -49,7 +49,7 @@ func GetObjectRatingsWithSlotByDataID(dataID uint64) ([]*datastore_types.DataSto
 	if err := rows.Err(); err != nil {
 		globals.Logger.Error(err.Error())
 		// TODO - Send more specific errors?
-		return nil, nex.Errors.DataStore.Unknown
+		return nil, nex.ResultCodes.DataStore.Unknown
 	}
 
 	return ratings, 0

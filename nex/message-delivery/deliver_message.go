@@ -1,15 +1,15 @@
 package nex_message_delivery
 
 import (
-	nex "github.com/PretendoNetwork/nex-go"
-	message_delivery "github.com/PretendoNetwork/nex-protocols-go/message-delivery"
+	nex "github.com/PretendoNetwork/nex-go/v2"
+	message_delivery "github.com/PretendoNetwork/nex-protocols-go/v2/message-delivery"
 	"github.com/PretendoNetwork/super-mario-maker-secure/globals"
 )
 
 func DeliverMessage(err error, packet nex.PacketInterface, callID uint32, oUserMessage *nex.DataHolder) uint32 {
 	if err != nil {
 		globals.Logger.Error(err.Error())
-		return nex.Errors.DataStore.Unknown
+		return nex.ResultCodes.DataStore.Unknown
 	}
 
 	client := packet.Sender()

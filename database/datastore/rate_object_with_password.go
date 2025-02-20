@@ -3,8 +3,8 @@ package datastore_db
 import (
 	"database/sql"
 
-	"github.com/PretendoNetwork/nex-go"
-	datastore_types "github.com/PretendoNetwork/nex-protocols-go/datastore/types"
+	"github.com/PretendoNetwork/nex-go/v2"
+	datastore_types "github.com/PretendoNetwork/nex-protocols-go/v2/datastore/types"
 	"github.com/PretendoNetwork/super-mario-maker-secure/database"
 	"github.com/PretendoNetwork/super-mario-maker-secure/globals"
 )
@@ -34,12 +34,12 @@ func RateObjectWithPassword(dataID uint64, slot uint8, ratingValue int32, access
 		// * to the check at the start of the function.
 		// * This is an invalid argument
 		if err == sql.ErrNoRows {
-			return nil, nex.Errors.DataStore.InvalidArgument
+			return nil, nex.ResultCodes.DataStore.InvalidArgument
 		}
 
 		globals.Logger.Error(err.Error())
 		// TODO - Send more specific errors?
-		return nil, nex.Errors.DataStore.Unknown
+		return nil, nex.ResultCodes.DataStore.Unknown
 	}
 
 	return rating, 0

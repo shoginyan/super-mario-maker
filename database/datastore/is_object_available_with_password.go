@@ -3,7 +3,7 @@ package datastore_db
 import (
 	"database/sql"
 
-	"github.com/PretendoNetwork/nex-go"
+	"github.com/PretendoNetwork/nex-go/v2"
 	"github.com/PretendoNetwork/super-mario-maker-secure/database"
 	"github.com/PretendoNetwork/super-mario-maker-secure/globals"
 )
@@ -22,20 +22,20 @@ func IsObjectAvailableWithPassword(dataID, password uint64) uint32 {
 
 	if err != nil {
 		if err == sql.ErrNoRows {
-			return nex.Errors.DataStore.NotFound
+			return nex.ResultCodes.DataStore.NotFound
 		}
 
 		globals.Logger.Error(err.Error())
 		// TODO - Send more specific errors?
-		return nex.Errors.DataStore.Unknown
+		return nex.ResultCodes.DataStore.Unknown
 	}
 
 	if accessPassword != 0 && accessPassword != password {
-		return nex.Errors.DataStore.InvalidPassword
+		return nex.ResultCodes.DataStore.InvalidPassword
 	}
 
 	if underReview {
-		return nex.Errors.DataStore.UnderReviewing
+		return nex.ResultCodes.DataStore.UnderReviewing
 	}
 
 	return 0

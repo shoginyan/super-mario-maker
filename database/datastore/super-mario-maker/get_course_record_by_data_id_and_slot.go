@@ -4,8 +4,8 @@ import (
 	"database/sql"
 	"time"
 
-	"github.com/PretendoNetwork/nex-go"
-	datastore_super_mario_maker_types "github.com/PretendoNetwork/nex-protocols-go/datastore/super-mario-maker/types"
+	"github.com/PretendoNetwork/nex-go/v2"
+	datastore_super_mario_maker_types "github.com/PretendoNetwork/nex-protocols-go/v2/datastore/super-mario-maker/types"
 	"github.com/PretendoNetwork/super-mario-maker-secure/database"
 	datastore_db "github.com/PretendoNetwork/super-mario-maker-secure/database/datastore"
 	"github.com/PretendoNetwork/super-mario-maker-secure/globals"
@@ -45,12 +45,12 @@ func GetCourseRecordByDataIDAndSlot(dataID uint64, slot uint8) (*datastore_super
 
 	if err != nil {
 		if err == sql.ErrNoRows {
-			return nil, nex.Errors.DataStore.NotFound
+			return nil, nex.ResultCodes.DataStore.NotFound
 		}
 
 		globals.Logger.Error(err.Error())
 		// TODO - Send more specific errors?
-		return nil, nex.Errors.DataStore.Unknown
+		return nil, nex.ResultCodes.DataStore.Unknown
 	}
 
 	courseRecord.CreatedTime.FromTimestamp(createdDate)

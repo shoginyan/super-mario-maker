@@ -3,7 +3,7 @@ package datastore_smm_db
 import (
 	"database/sql"
 
-	"github.com/PretendoNetwork/nex-go"
+	"github.com/PretendoNetwork/nex-go/v2"
 	"github.com/PretendoNetwork/super-mario-maker-secure/database"
 	datastore_db "github.com/PretendoNetwork/super-mario-maker-secure/database/datastore"
 )
@@ -21,7 +21,7 @@ func GetBufferQueuesByDataIDAndSlot(dataID uint64, slot uint32) ([][]byte, uint3
 	// * No rows is allowed
 	if err != nil && err != sql.ErrNoRows {
 		// TODO - Send more specific errors?
-		return nil, nex.Errors.DataStore.Unknown
+		return nil, nex.ResultCodes.DataStore.Unknown
 	}
 
 	defer rows.Close()
@@ -32,7 +32,7 @@ func GetBufferQueuesByDataIDAndSlot(dataID uint64, slot uint32) ([][]byte, uint3
 		err := rows.Scan(&buffer)
 		if err != nil {
 			// TODO - Send more specific errors?
-			return nil, nex.Errors.DataStore.Unknown
+			return nil, nex.ResultCodes.DataStore.Unknown
 		}
 
 		bufferQueues = append(bufferQueues, buffer)
@@ -40,7 +40,7 @@ func GetBufferQueuesByDataIDAndSlot(dataID uint64, slot uint32) ([][]byte, uint3
 
 	if err := rows.Err(); err != nil {
 		// TODO - Send more specific errors?
-		return nil, nex.Errors.DataStore.Unknown
+		return nil, nex.ResultCodes.DataStore.Unknown
 	}
 
 	return bufferQueues, 0

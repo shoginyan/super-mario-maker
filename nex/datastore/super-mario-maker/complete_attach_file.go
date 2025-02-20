@@ -5,9 +5,9 @@ import (
 	"os"
 	"time"
 
-	nex "github.com/PretendoNetwork/nex-go"
-	datastore_super_mario_maker "github.com/PretendoNetwork/nex-protocols-go/datastore/super-mario-maker"
-	datastore_types "github.com/PretendoNetwork/nex-protocols-go/datastore/types"
+	nex "github.com/PretendoNetwork/nex-go/v2"
+	datastore_super_mario_maker "github.com/PretendoNetwork/nex-protocols-go/v2/datastore/super-mario-maker"
+	datastore_types "github.com/PretendoNetwork/nex-protocols-go/v2/datastore/types"
 	datastore_db "github.com/PretendoNetwork/super-mario-maker-secure/database/datastore"
 	"github.com/PretendoNetwork/super-mario-maker-secure/globals"
 )
@@ -15,14 +15,14 @@ import (
 func CompleteAttachFile(err error, packet nex.PacketInterface, callID uint32, param *datastore_types.DataStoreCompletePostParam) uint32 {
 	if err != nil {
 		globals.Logger.Error(err.Error())
-		return nex.Errors.DataStore.Unknown
+		return nex.ResultCodes.DataStore.Unknown
 	}
 
 	client := packet.Sender()
 
 	// TODO - What is param.IsSuccess? Is this correct?
 	if !param.IsSuccess {
-		return nex.Errors.DataStore.InvalidArgument
+		return nex.ResultCodes.DataStore.InvalidArgument
 	}
 
 	bucket := os.Getenv("PN_SMM_CONFIG_S3_BUCKET")
@@ -31,7 +31,7 @@ func CompleteAttachFile(err error, packet nex.PacketInterface, callID uint32, pa
 	objectSizeS3, err := globals.S3ObjectSize(bucket, key)
 	if err != nil {
 		globals.Logger.Error(err.Error())
-		return nex.Errors.DataStore.NotFound
+		return nex.ResultCodes.DataStore.NotFound
 	}
 
 	objectSizeDB, errCode := datastore_db.GetObjectSizeDataID(param.DataID)
@@ -41,7 +41,7 @@ func CompleteAttachFile(err error, packet nex.PacketInterface, callID uint32, pa
 
 	if objectSizeS3 != uint64(objectSizeDB) {
 		// TODO - Is this a good error?
-		return nex.Errors.DataStore.Unknown
+		return nex.ResultCodes.DataStore.Unknown
 	}
 
 	errCode = datastore_db.UpdateObjectUploadCompletedByDataID(param.DataID, true)
@@ -52,7 +52,7 @@ func CompleteAttachFile(err error, packet nex.PacketInterface, callID uint32, pa
 	pURL, err := globals.Presigner.GetObject(bucket, key, time.Minute*15)
 	if err != nil {
 		globals.Logger.Error(err.Error())
-		return nex.Errors.DataStore.OperationNotAllowed
+		return nex.ResultCodes.DataStore.OperationNotAllowed
 	}
 
 	rmcResponseStream := nex.NewStreamOut(globals.SecureServer)

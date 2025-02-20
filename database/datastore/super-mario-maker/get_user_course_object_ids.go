@@ -3,7 +3,7 @@ package datastore_smm_db
 import (
 	"database/sql"
 
-	"github.com/PretendoNetwork/nex-go"
+	"github.com/PretendoNetwork/nex-go/v2"
 	"github.com/PretendoNetwork/super-mario-maker-secure/database"
 	datastore_db "github.com/PretendoNetwork/super-mario-maker-secure/database/datastore"
 	"github.com/PretendoNetwork/super-mario-maker-secure/globals"
@@ -23,7 +23,7 @@ func GetUserCourseObjectIDs(ownerPID uint32) ([]uint64, uint32) {
 	// * No rows is allowed
 	if err != nil && err != sql.ErrNoRows {
 		globals.Logger.Error(err.Error())
-		return nil, nex.Errors.DataStore.Unknown
+		return nil, nex.ResultCodes.DataStore.Unknown
 	}
 
 	defer rows.Close()
@@ -47,7 +47,7 @@ func GetUserCourseObjectIDs(ownerPID uint32) ([]uint64, uint32) {
 
 	if err := rows.Err(); err != nil {
 		// TODO - Send more specific errors?
-		return nil, nex.Errors.DataStore.Unknown
+		return nil, nex.ResultCodes.DataStore.Unknown
 	}
 
 	return courseObjectIDs, 0

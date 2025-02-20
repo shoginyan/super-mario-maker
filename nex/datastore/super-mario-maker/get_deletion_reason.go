@@ -1,15 +1,15 @@
 package nex_datastore_super_mario_maker
 
 import (
-	nex "github.com/PretendoNetwork/nex-go"
-	datastore_super_mario_maker "github.com/PretendoNetwork/nex-protocols-go/datastore/super-mario-maker"
+	nex "github.com/PretendoNetwork/nex-go/v2"
+	datastore_super_mario_maker "github.com/PretendoNetwork/nex-protocols-go/v2/datastore/super-mario-maker"
 	"github.com/PretendoNetwork/super-mario-maker-secure/globals"
 )
 
 func GetDeletionReason(err error, packet nex.PacketInterface, callID uint32, dataIDLst []uint64) uint32 {
 	if err != nil {
 		globals.Logger.Error(err.Error())
-		return nex.Errors.DataStore.Unknown
+		return nex.ResultCodes.DataStore.Unknown
 	}
 
 	client := packet.Sender()

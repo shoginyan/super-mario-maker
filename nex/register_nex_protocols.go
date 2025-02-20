@@ -1,7 +1,7 @@
 package nex
 
 import (
-	message_delivery "github.com/PretendoNetwork/nex-protocols-go/message-delivery"
+	message_delivery "github.com/PretendoNetwork/nex-protocols-go/v2/message-delivery"
 	"github.com/PretendoNetwork/super-mario-maker-secure/globals"
 	nex_message_delivery "github.com/PretendoNetwork/super-mario-maker-secure/nex/message-delivery"
 )

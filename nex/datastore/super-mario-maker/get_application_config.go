@@ -3,8 +3,8 @@ package nex_datastore_super_mario_maker
 import (
 	"fmt"
 
-	nex "github.com/PretendoNetwork/nex-go"
-	datastore_super_mario_maker "github.com/PretendoNetwork/nex-protocols-go/datastore/super-mario-maker"
+	nex "github.com/PretendoNetwork/nex-go/v2"
+	datastore_super_mario_maker "github.com/PretendoNetwork/nex-protocols-go/v2/datastore/super-mario-maker"
 	"github.com/PretendoNetwork/super-mario-maker-secure/globals"
 )
 
@@ -19,7 +19,7 @@ var MAX_COURSE_UPLOADS uint32 = 100
 func GetApplicationConfig(err error, packet nex.PacketInterface, callID uint32, applicationID uint32) uint32 {
 	if err != nil {
 		globals.Logger.Error(err.Error())
-		return nex.Errors.DataStore.Unknown
+		return nex.ResultCodes.DataStore.Unknown
 	}
 
 	client := packet.Sender()
@@ -87,7 +87,7 @@ func getApplicationConfig_PlayerConfig() []uint32 {
 func getApplicationConfig_OfficialMakers() []uint32 {
 	// * Used as the PIDs for the "Official" makers in the "MAKERS" section
 	return []uint32{
-		2, // * Not a real user PID, this translates to the internal Quazal Rendez-Vous user used by NEX
+		2,          // * Not a real user PID, this translates to the internal Quazal Rendez-Vous user used by NEX
 		1770179696, // * "official_player0" on NN, need to make PN versions
 		1770179664, // * "official_player1" on NN, need to make PN versions
 		1770179640, // * "official_player2" on NN, need to make PN versions

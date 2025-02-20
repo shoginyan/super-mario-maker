@@ -3,7 +3,7 @@ package datastore_db
 import (
 	"database/sql"
 
-	"github.com/PretendoNetwork/nex-go"
+	"github.com/PretendoNetwork/nex-go/v2"
 	"github.com/PretendoNetwork/super-mario-maker-secure/database"
 	"github.com/PretendoNetwork/super-mario-maker-secure/globals"
 )
@@ -14,16 +14,16 @@ func IsObjectAvailable(dataID uint64) uint32 {
 	err := database.Postgres.QueryRow(`SELECT under_review FROM datastore.objects WHERE data_id=$1 AND upload_completed=TRUE AND deleted=FALSE`, dataID).Scan(&underReview)
 	if err != nil {
 		if err == sql.ErrNoRows {
-			return nex.Errors.DataStore.NotFound
+			return nex.ResultCodes.DataStore.NotFound
 		}
 
 		globals.Logger.Error(err.Error())
 		// TODO - Send more specific errors?
-		return nex.Errors.DataStore.Unknown
+		return nex.ResultCodes.DataStore.Unknown
 	}
 
 	if underReview {
-		return nex.Errors.DataStore.UnderReviewing
+		return nex.ResultCodes.DataStore.UnderReviewing
 	}
 
 	return 0
